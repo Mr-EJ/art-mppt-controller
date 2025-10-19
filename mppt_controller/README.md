@@ -7,11 +7,13 @@ This is a complete **ESPHome external component** for communicating with an RS48
 ## 📁 File Structure
 
 ```
-components/mppt_controller/
+/mppt_controller/
 ├── __init__.py
 ├── mppt_controller.h
 ├── mppt_controller.cpp
 ├── sensor.py
+├── services.py
+├── switches.py
 └── README.md  ← (this file)
 ```
 
@@ -116,11 +118,10 @@ service: esphome.mppt_reset
 
 ---
 
-**Maintainer:** Edward Allen  
+**Maintainer:** Mr-EJ  
 **Version:** 1.0.0  
 **Protocol:** MPPT SI20210402T Series (RS485 9600 8N1)
 
 ---
 
-📘 For protocol reference, see: *Solar Charge Controller (MPPT) Protocol Manual* (provided in your documentation).
 
