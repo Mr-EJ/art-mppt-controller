@@ -10,6 +10,7 @@ CONF_LOAD_SWITCH = "load_switch"
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MPPTController),
     cv.Optional(CONF_LOAD_SWITCH): switch.switch_schema(
+        MPPTController,
         icon="mdi:power",
         entity_category="config"
     ),
