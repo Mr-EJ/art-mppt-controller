@@ -1,4 +1,3 @@
-//# external_components/mppt_controller/mppt_controller.cpp
 #include "mppt_controller.h"
 #include "esphome/core/log.h"
 
