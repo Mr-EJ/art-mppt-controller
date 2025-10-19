@@ -40,4 +40,4 @@ async def to_code(config):
     # Delegate to submodules
     await mppt_sensor.to_code(config)
     await mppt_switch.to_code(config)
-#    await mppt_services.to_code(config)
+    await mppt_services.to_code(config)
