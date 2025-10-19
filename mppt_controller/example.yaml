@@ -1,0 +1,51 @@
+# Example YAML configuration
+esphome:
+  name: mppt_monitor
+  platform: ESP32
+  board: esp32dev
+
+external_components:
+  - source: ./components/mppt_controller
+
+uart:
+  id: mppt_uart
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 9600
+
+mppt_controller:
+  id: mppt1
+  update_interval: 5s
+
+  pv_voltage:
+    name: "PV Voltage"
+  pv_current:
+    name: "PV Current"
+  battery_voltage:
+    name: "Battery Voltage"
+  temperature:
+    name: "Battery Temperature"
+  load_current:
+    name: "Load Current"
+  daily_energy:
+    name: "Daily Energy"
+  total_energy:
+    name: "Total Energy"
+
+  load_switch:
+    name: "MPPT Load Output"
+
+script:
+  - id: reset_mppt_energy
+    then:
+      - mppt_controller.reset_energy:
+          clear: true
+          reboot: false
+
+  - id: set_mppt_params
+    then:
+      - mppt_controller.set_charging_params:
+          charge_current: 16
+          battery_type: 4
+          const_voltage: 288
+          load_undervoltage: 224
