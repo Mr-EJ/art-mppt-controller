@@ -41,3 +41,7 @@ async def mppt_charge_action(config, action_id, template_arg, args):
     cg.add(var.set_const_voltage(config["const_voltage"]))
     cg.add(var.set_load_undervoltage(config["load_undervoltage"]))
     return var
+    
+async def to_code(config):
+    # This function exists only so __init__.py can safely await it
+    pass
