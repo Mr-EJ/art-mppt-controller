@@ -1,4 +1,4 @@
-# components/mppt_controller/mppt_controller.h
+//# components/mppt_controller/mppt_controller.h
 #pragma once
 #include "esphome.h"
 #include "esphome/components/sensor/sensor.h"
