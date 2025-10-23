@@ -1,5 +1,3 @@
-# components/mppt_controller/__init__.py
-
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import uart
