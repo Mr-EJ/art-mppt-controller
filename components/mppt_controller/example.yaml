@@ -46,12 +46,18 @@ ota:
   - platform: esphome
     password: !secret ota_password
 
+# external_components:
+#   - source:
+#       type: local
+#       path: .
+#     components: mppt_controller
+# if all files are placed in /config/esphome/mppt_controller and yaml in /config/esphome/
+
 external_components:
   - source:
-      type: local
-      path: .
-    components: mppt_controller
-
+      type: git
+      url: https://github.com/Mr-EJ/art-mppt-controller.git
+      ref: main
 uart:
   - id: mppt_bus
     tx_pin: ${tx_pin}
