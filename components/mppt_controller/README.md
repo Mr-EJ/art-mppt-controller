@@ -144,15 +144,17 @@ script:
 ---
 
 ## 🪛 Wiring Guide
-
+==Option 1
 | Pin | Function | Connect To |
 |-----|-----------|-------------|
 | TX  | RS485 TX  | RS485 Adapter RX |
 | RX  | RS485 RX  | RS485 Adapter TX |
 | GND | Ground    | Common ground |
 | DE/RE | Always High (Transmit Enable) | Tie to 3.3V |
+
 Recommended RS485 transceiver: **MAX485 or SN65HVD230**.
 
+==Option 2
 | ESP32-WROOM |Direction | TTL-to-RS485 auto flowctl | 
 |-----|-----------|-------------|
 | GND     | ----------> |GND|
