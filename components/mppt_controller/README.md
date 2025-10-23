@@ -24,31 +24,121 @@ Add the folder under your ESPHome configuration directory (e.g., `/config/esphom
 ## ⚙️ ESPHome YAML Example
 
 ```yaml
+# Example YAML configuration
+substitutions:
+  name: mpptcontrol
+  device_description: "Monitor and control a MPPT Charge Controller via UART"
+  rx_pin: GPIO17
+  tx_pin: GPIO16
+
 esphome:
-  name: mppt_monitor
-  platform: ESP32
+  name: ${name}
+  comment: ${device_description}
+
+
+esp32:
   board: esp32dev
+  framework:
+    type: esp-idf
+
+# web_server:
+#   port: 80
+
+logger:
+
+# Required sensor platform
+sensor:
+
+# Required switch platform (for load_switch)
+switch:
+
+# Required text_sensor for any text-based sensors
+text_sensor:
+
+# Required binary_sensor platform
+binary_sensor:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+#  use_address: 192.168.0.194
+  
+  ap:
+    ssid: "MPPT Fallback Hotspot"
+    password: "fallback_password"
+
+api:
+ota:
+  - platform: esphome
+    password: !secret ota_password
 
 external_components:
-  - source: ./components/mppt_controller
+  - source:
+      type: local
+      path: .
+    components: mppt_controller
 
 uart:
-  id: mppt_uart
-  tx_pin: GPIO17
-  rx_pin: GPIO16
-  baud_rate: 9600
+  - id: mppt_bus
+    tx_pin: ${tx_pin}
+    rx_pin: ${rx_pin}
+    baud_rate: 9600  
 
 mppt_controller:
   id: mppt1
-  update_interval: 5s
+  update_interval: 8s
 
-sensor:
-  - platform: template
-    name: "MPPT PV Voltage"
-    id: mppt_pv_voltage
-  - platform: template
+  pv_voltage:
+    name: "PV Voltage"
+    accuracy_decimals: 3
+  pv_current:
+    name: "PV Current"
+    accuracy_decimals: 3
+  pv_power:
+    name: "PV Power"
+    accuracy_decimals: 3
+  battery_voltage:
     name: "Battery Voltage"
-    id: mppt_battery_voltage
+    accuracy_decimals: 3
+  temperature:
+    name: "MPPT Temperature"
+    accuracy_decimals: 3
+  load_current:
+    name: "Load Current"
+    accuracy_decimals: 3
+  daily_energy:
+    name: "Daily Energy"
+    accuracy_decimals: 3
+  total_energy:
+    name: "Total Energy"
+    accuracy_decimals: 3
+  error_code:
+    name: "MPPT Error Code"
+  working_mode:
+    name: "MPPT Working Mode"
+    
+  load_switch:
+    name: "MPPT Load Output"
+    icon: "mdi:power"
+    entity_category: config
+    mppt_controller: mppt1 
+
+script:
+  - id: reset_mppt_energy
+    then:
+      - mppt_controller.reset_energy:  # This now calls the safe method automatically
+          id: mppt1
+          clear: true
+          reboot: false
+
+  - id: set_mppt_params
+    then:
+      - mppt_controller.set_charging_params:  # This now calls the safe method automatically
+          id: mppt1
+          charge_current: 16
+          battery_type: 4
+          const_voltage: 288
+          load_undervoltage: 224
 ```
 
 ---
@@ -61,8 +151,18 @@ sensor:
 | RX  | RS485 RX  | RS485 Adapter TX |
 | GND | Ground    | Common ground |
 | DE/RE | Always High (Transmit Enable) | Tie to 3.3V |
-
 Recommended RS485 transceiver: **MAX485 or SN65HVD230**.
+
+ESP32-WROOM           TTL-to-RS485 auto flowctl
+    3.3V     ----------> VCC
+    GND      ----------> GND
+    GPIO17   ----------> DI (Data In - TX from ESP32)
+    GPIO16   ----------> RO (Data Out - RX to ESP32)
+    
+    RS485 Device
+    A         ----------> A (or D+)
+    B         ----------> B (or D-)
+
 
 ---
 
@@ -120,7 +220,7 @@ service: esphome.mppt_reset
 
 **Maintainer:** Mr-EJ  
 **Version:** 1.0.0  
-**Protocol:** MPPT SI20210402T Series (RS485 9600 8N1)
+**Protocol:** (RS485 9600 8N1)
 
 ---
 
