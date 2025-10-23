@@ -16,7 +16,7 @@ This is a complete **ESPHome external component** for communicating with an RS48
 ├── switches.py
 └── README.md  ← (this file)
 ```
-
+# Assumes all files are placed in /config/esphome/mppt_controller and yaml in /config/esphome/
 Add the folder under your ESPHome configuration directory (e.g., `/config/esphome/components/`).
 
 ---
@@ -77,6 +77,14 @@ external_components:
       type: local
       path: .
     components: mppt_controller
+
+## if all files are placed in /config/esphome/mppt_controller and yaml in /config/esphome/
+##otherwise comment above and use below.
+#external_components:
+#  - source:
+#      type: git
+#      url: https://github.com/Mr-EJ/art-mppt-controller.git
+#      ref: main
 
 uart:
   - id: mppt_bus
