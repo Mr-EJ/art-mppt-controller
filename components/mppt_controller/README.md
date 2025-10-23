@@ -211,9 +211,8 @@ service: esphome.mppt_reset
 
 ## ✅ Next Steps
 
-- Extend parsing in `parse_response()` to publish all metrics (PV current, load, temperature, etc.)
-- Implement parameter write and reset functions following your verified Python examples.
-- Add error code translation for better diagnostics.
+
+- Add multi device support.
 
 ---
 
