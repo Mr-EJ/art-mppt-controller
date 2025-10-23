@@ -17,7 +17,7 @@ This is a complete **ESPHome external component** for communicating with an RS48
 └── README.md  ← (this file)
 ```
 # Assumes all files are placed in /config/esphome/mppt_controller and yaml in /config/esphome/
-Add the folder under your ESPHome configuration directory (e.g., `/config/esphome/components/`).
+Add the folder under your ESPHome configuration directory (e.g., `/config/esphome/`).
 
 ---
 
