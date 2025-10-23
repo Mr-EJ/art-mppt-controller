@@ -153,15 +153,14 @@ script:
 | DE/RE | Always High (Transmit Enable) | Tie to 3.3V |
 Recommended RS485 transceiver: **MAX485 or SN65HVD230**.
 
-ESP32-WROOM           TTL-to-RS485 auto flowctl
-    3.3V     ----------> VCC
-    GND      ----------> GND
-    GPIO17   ----------> DI (Data In - TX from ESP32)
-    GPIO16   ----------> RO (Data Out - RX to ESP32)
-    
-    RS485 Device
-    A         ----------> A (or D+)
-    B         ----------> B (or D-)
+| ESP32-WROOM |Direction | TTL-to-RS485 auto flowctl | 
+|-----|-----------|-------------|
+| GND     | ----------> |GND|
+| GPIO17  | ----------> |DI (Data In - TX from ESP32)|
+| GPIO16  | ----------> |RO (Data Out - RX to ESP32)|
+| RS485 device| |TTL-Converter|
+|A         |----------> |A (or D+)|
+|B         |----------> |B (or D-)|
 
 
 ---
