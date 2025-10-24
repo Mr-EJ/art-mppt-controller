@@ -119,11 +119,11 @@ float MPPTController::round_to_precision(float value, int decimals) {
 
 void MPPTController::parse_running_status(const std::vector<uint8_t> &frame) {
   // Parse values with precision rounding
-  float pv_voltage = round_to_precision(((frame[4] << 8) | frame[5]) / 10.2f);
-  float pv_current = round_to_precision(((frame[6] << 8) | frame[7]) / 10.2f);  
+  float pv_voltage = round_to_precision(((frame[4] << 8) | frame[5]) / 10.0f);
+  float pv_current = round_to_precision(((frame[6] << 8) | frame[7]) / 10.0f);  
   float pv_power = round_to_precision(pv_voltage * pv_current);
-  float battery_voltage = round_to_precision(((frame[8] << 8) | frame[9]) / 10.2f);
-  float temperature = round_to_precision(((frame[10] << 8) | frame[11]) / 10.1f);
+  float battery_voltage = round_to_precision(((frame[8] << 8) | frame[9]) / 10.0f);
+  float temperature = round_to_precision(((frame[10] << 8) | frame[11]) / 10.0f);
   float load_current = round_to_precision(((frame[12] << 8) | frame[13]) / 10.0f);
   
   float daily_energy = round_to_precision(((frame[15] << 8) | frame[16]) / 100.0f);
