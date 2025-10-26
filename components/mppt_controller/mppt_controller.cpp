@@ -74,7 +74,7 @@ void MPPTController::update() {
   // Clear buffer and send
   while (this->available() > 0) this->read();
   send_frame(frame);
-  delay(300);
+  delay(50);
   
   auto resp = read_frame();
   
